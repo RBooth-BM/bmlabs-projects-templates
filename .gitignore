@@ -1,0 +1,100 @@
+# =============================================================================
+# GITIGNORE PRINCIPAL - BMLABS PROJECTS TEMPLATES
+# =============================================================================
+# 
+# Este archivo excluye archivos comunes innecesarios para el repositorio
+# principal de templates. Cada subdirectorio de proyecto puede tener su
+# propio .gitignore más específico.
+#
+
+# =============================================================================
+# ARCHIVOS DEL SISTEMA OPERATIVO
+# =============================================================================
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+desktop.ini
+Thumbs.db
+ehthumbs.db
+$RECYCLE.BIN/
+
+# Linux
+*~
+
+# =============================================================================
+# ARCHIVOS DE EDITORES E IDES
+# =============================================================================
+
+# Visual Studio Code (configuraciones globales)
+.vscode/settings.json
+.vscode/launch.json
+.vscode/extensions.json
+*.code-workspace
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# =============================================================================
+# ARCHIVOS TEMPORALES Y LOGS
+# =============================================================================
+
+# Logs generales
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Archivos temporales
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# =============================================================================
+# ARCHIVOS DE CONFIGURACIÓN PERSONAL
+# =============================================================================
+
+# Variables de entorno personales
+.env.local
+.env.personal
+
+# Configuraciones locales
+config.local.*
+settings.local.*
+
+# =============================================================================
+# ARCHIVOS DE BACKUP
+# =============================================================================
+
+*.backup
+*.bak
+*~
+Backup*/
+
+# =============================================================================
+# COMENTARIOS PARA MANTENIMIENTO
+# =============================================================================
+
+# Este .gitignore está diseñado para ser conservador y no interferir
+# con los .gitignore específicos de cada template de proyecto.
+#
+# Los templates individuales (api-dotnet, app-react, view-vuejs) 
+# deben mantener sus propios .gitignore más detallados para sus
+# tecnologías específicas.
