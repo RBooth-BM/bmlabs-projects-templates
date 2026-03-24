@@ -1,6 +1,10 @@
 ---
 name: be-create-service
-description: Guía para crear servicios en .NET Core siguiendo las convenciones del proyecto.
+description: >
+  Utiliza este skill cuando necesites implementar lógica de negocio, casos de uso, o servicios de aplicación en .NET.
+  Aplica cuando el usuario mencione "crear servicio", "lógica de negocio", "caso de uso", "business logic", "application service", "orquestar operaciones",
+  o cuando necesite coordinar entre controllers y repositories — incluso si no dice explícitamente "service" o "servicio".
+  Genera servicios con CrudService genérico base, operaciones de negocio específicas, validaciones, transacciones e inyección de dependencias.
 user-invocable: true
 argument-hint: "Nombre del servicio a crear (ej: 'ProductoService')"
 metadata: 
@@ -11,7 +15,7 @@ metadata:
 # SKILL: Creación de Services en .NET Core con CrudService Base
 
 ## Propósito
-Este skill proporciona las convenciones y patrones para crear services en .NET Cor.
+Utiliza este skill para crear nuevos services en el proyecto de .NET Core siguiendo las convenciones y patrones establecidos. Los services generados incluirán la estructura base, implementación de un CrudService genérico, herencia para services específicos, inyección de dependencias y documentación XML, asegurando que los services sigan las mejores prácticas de diseño y sean compatibles con el sistema de servicios del proyecto. Este skill se basa en las mejores prácticas de diseño de servicios con Entity Framework Core en .NET Core, garantizando que los services sean claros, mantenibles y estén correctamente configurados para su uso en la aplicación. Este skill se complementa con los skills de creación de entidades y repositories, ya que los services se basan en las entidades y repositories definidos en el proyecto para realizar operaciones de negocio y acceso a datos.
 
 ## Arquitectura Base
 

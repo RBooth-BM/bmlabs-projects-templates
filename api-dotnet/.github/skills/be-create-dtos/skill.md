@@ -1,6 +1,10 @@
 ---
 name: be-create-dtos
-description: Guía para crear DTOs en .NET Core.
+description: >
+  Utiliza este skill cuando necesites crear contratos de datos, objetos de transferencia, o modelos para APIs en .NET. 
+  Aplica cuando el usuario mencione "crear DTO", "modelos de datos", "contratos API", "request/response objects", "serialización JSON", 
+  o cuando necesite estructuras de datos para comunicación entre capas — incluso si no dice explícitamente "DTO" o "Data Transfer Object".
+  Genera DTOs inmutables para respuestas y mutables para requests, con validaciones, documentación XML y patrones estándar.
 user-invocable: true
 argument-hint: "Nombre del DTO a crear (ej: 'ProductoDto')"
 metadata: 
@@ -11,7 +15,7 @@ metadata:
 # SKILL: Creación de DTOs en .NET Core
 
 ## Propósito
-Este skill proporciona las convenciones y patrones para crear DTOs (Data Transfer Objects) en .NET Core. Los DTOs son objetos que se utilizan para transferir datos entre capas de la aplicación, especialmente entre la capa de servicios y la capa de presentación (API).
+Utiliza este skill para crear nuevos DTOs (Data Transfer Objects) en el proyecto de .NET Core siguiendo las convenciones y patrones establecidos. Los DTOs generados incluirán estructuras inmutables para respuestas y estructuras mutables para solicitudes, con validaciones y documentación XML. Este skill se basa en las mejores prácticas de diseño de DTOs en .NET Core, asegurando que los objetos de transferencia de datos sean claros, seguros y fáciles de mantener.
 
 # Input
    Entidades en el proyecto  que se encuentran en el archivo Context.cs.

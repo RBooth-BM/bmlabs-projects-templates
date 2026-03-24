@@ -1,24 +1,17 @@
 ---
 name: be-setup-program
-description: 'Genera o completa un archivo Program.cs para una API ASP.NET Core 8+. 
-                Use when: scaffolding, 
-                            configurando autenticación Azure AD/JWT, 
-                            registrando DbContext con EF Core, 
-                            inyección de dependencias, 
-                            Swagger, 
-                            CORS, 
-                            Serilog, 
-                            health checks, 
-                            background services, 
-                            middleware pipeline, 
-                            JSON serialization, 
-                            o conectando todas las capas de la arquitectura.'
+description: >
+  Utiliza este skill cuando necesites configurar el startup de una aplicación .NET, establecer middleware, o estructurar el bootstrap de la API.
+  Aplica cuando el usuario mencione "configurar Program.cs", "startup configuration", "middleware pipeline", "inyección de dependencias", "autenticación", "Swagger", "CORS", "DbContext",
+  "health checks", "logging", "background services", o cuando necesite conectar todas las capas de la arquitectura — incluso si no dice explícitamente "Program.cs".
+  Genera configuración completa de ASP.NET Core con autenticación, EF Core, DI, Swagger, CORS, Serilog, health checks y middleware pipeline optimizado.
 argument-hint: 'Describe qué secciones del Program.cs necesitas configurar o generar desde cero'
 ---
 
 # Program.cs Setup — ASP.NET Core API
 
 ## Cuándo usar este skill
+Utiliza este skill para generar o completar un archivo `Program.cs` para una API ASP.NET Core 8+. El skill te guiará en la configuración de secciones clave como autenticación Azure AD/JWT, registro de DbContext con EF Core, inyección de dependencias, Swagger, CORS, Serilog, health checks, background services, middleware pipeline, JSON serialization y conexión de capas de la arquitectura. Este skill se basa en las mejores prácticas de configuración y diseño de aplicaciones ASP.NET Core, garantizando que el `Program.cs` generado sea claro, mantenible y esté correctamente configurado para su uso en la aplicación.
 - Modificar un `Program.cs` existente para una API .NET 8+.
 - Agregar o modificar secciones del pipeline: autenticación, CORS, Swagger, DbContext, DI, etc.
 - Integrar nuevas capas (repositorios, servicios, DTOs/mappers/validators) al startup.

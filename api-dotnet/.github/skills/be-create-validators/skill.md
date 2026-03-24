@@ -1,6 +1,10 @@
 ---
 name: be-create-validators
-description: Guía para crear validators en .NET Core siguiendo las convenciones del proyecto.
+description: >
+  Utiliza este skill cuando necesites validar datos de entrada, establecer reglas de negocio, o asegurar integridad de datos en .NET con FluentValidation.
+  Aplica cuando el usuario mencione "validar datos", "reglas de validación", "FluentValidation", "verificar inputs", "data validation", "business rules",
+  o cuando necesite validar DTOs o modelos — incluso si no dice explícitamente "validator" o "validación".
+  Genera validators completos con reglas comunes, validaciones condicionales, mensajes personalizados y integración automática con ASP.NET Core.
 user-invocable: true
 argument-hint: "Nombre del DTO a validar (ej: 'ProductoDto')"
 metadata: 
@@ -12,7 +16,7 @@ metadata:
 # SKILL: Creación de Validators en .NET Core con FluentValidation
 
 ## Propósito
-Este skill proporciona las convenciones y patrones para crear validators usando FluentValidation en .NET Core 
+Utiliza este skill para crear nuevos validators de FluentValidation en el proyecto de .NET Core siguiendo las convenciones y patrones establecidos. Los validators generados incluirán la estructura base, reglas de validación comunes, validaciones condicionales, manejo de mensajes de error y documentación XML, asegurando que los validators sigan las mejores prácticas de diseño y sean compatibles con el sistema de validación del proyecto. Este skill se basa en las mejores prácticas de diseño de validators con FluentValidation en .NET Core, garantizando que los validators sean claros, mantenibles y estén correctamente configurados para su uso en la aplicación. Este skill se complementa con los skills de creación de DTOs, ya que los validators se basan en los DTOs definidos en el proyecto para realizar validaciones de datos.
 
 ## Convenciones del Proyecto
 

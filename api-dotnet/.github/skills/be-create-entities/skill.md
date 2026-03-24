@@ -1,6 +1,10 @@
 ---
 name: be-create-entities
-description: Guía para crear entidades de base de datos en .NET Core siguiendo las convenciones del proyecto.
+description: >
+  Utiliza este skill cuando necesites crear modelos de base de datos, tablas de dominio, o estructuras persistentes en .NET con Entity Framework.
+  Aplica cuando el usuario mencione "crear entidad", "modelo de datos", "tabla de BD", "Entity Framework", "DbContext", "relaciones de datos",
+  o cuando necesite definir el esquema de datos del negocio — incluso si no dice explícitamente "entity" o "base de datos".
+  Genera entidades completas con propiedades, relaciones, atributos EF Core, validaciones y configuración DbContext.
 user-invocable: true
 argument-hint: "Nombre de la entidad a crear (ej: 'Producto')"
 metadata: 
@@ -10,7 +14,7 @@ metadata:
 
 # SKILL: Creación de Entidades de Base de Datos en .NET Core
 ## Propósito
-Este skill proporciona las convenciones y patrones para crear entidades de base de datos en .NET Core siguiendo las prácticas establecidas en el proyecto SSA-EPP-BackOffice-API.
+Utiliza este skill para crear nuevas entidades de base de datos en el proyecto de .NET Core siguiendo las convenciones y patrones establecidos. Las entidades generadas incluirán la estructura base, propiedades, relaciones, atributos de Entity Framework y documentación XML, asegurando que las entidades sigan las mejores prácticas de diseño y sean compatibles con el DbContext del proyecto. Este skill se basa en las mejores prácticas de diseño de entidades en .NET Core, garantizando que las entidades sean claras, mantenibles y estén correctamente configuradas para su uso con Entity Framework.
 
 ## Convenciones del Proyecto
 

@@ -1,6 +1,10 @@
 ---
 name: be-create-mappings
-description: Guía para crear mappings en .NET Core.
+description: >
+  Utiliza este skill cuando necesites convertir datos entre capas, transformar objetos, o configurar mapeos automáticos en .NET con AutoMapper.
+  Aplica cuando el usuario mencione "mapear datos", "convertir entidades", "AutoMapper", "transformar objetos", "perfiles de mapeo",
+  o cuando necesite conectar DTOs con entidades — incluso si no dice explícitamente "mapping" o "AutoMapper".
+  Genera perfiles completos de mapeo con conversiones de tipos, propiedades de navegación, configuraciones personalizadas y documentación.
 user-invocable: true
 argument-hint: "Nombre del DTO a mapear (ej: 'ProductoDto')"
 metadata: 
@@ -12,7 +16,7 @@ metadata:
 # SKILL: Creación de Mappings en .NET Core con AutoMapper
 
 ## Propósito
-Este skill proporciona las convenciones y patrones para crear mappings usando AutoMapper en .NET Core.
+Utiliza este skill para crear nuevos mappings usando AutoMapper en .NET Core siguiendo las convenciones y patrones establecidos. Los perfiles de mapeo generados incluirán la configuración necesaria para mapear entre entidades y DTOs, manejo de conversiones de tipos, mapeo de propiedades de navegación y documentación XML, asegurando que los mappings sigan las mejores prácticas de diseño y sean compatibles con el sistema de mapeo del proyecto. Este skill se basa en las mejores prácticas de diseño de mappings con AutoMapper en .NET Core, garantizando que los perfiles de mapeo sean claros, mantenibles y estén correctamente configurados para su uso en la aplicación.
 
 ## Convenciones del Proyecto
 

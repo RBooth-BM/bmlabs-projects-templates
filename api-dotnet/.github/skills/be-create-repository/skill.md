@@ -1,6 +1,10 @@
 ---
 name: be-create-repository
-description: Guía para crear repositories en .NET Core.
+description: >
+  Utiliza este skill cuando necesites acceso a datos, operaciones CRUD, o consultas de base de datos en .NET con Entity Framework.
+  Aplica cuando el usuario mencione "crear repository", "acceso a datos", "consultas BD", "CRUD operations", "Entity Framework", "data access layer",
+  o cuando necesite encapsular operaciones de persistencia — incluso si no dice explícitamente "repository" o "patrón repositorio".
+  Genera repositories con implementación genérica base, operaciones CRUD específicas, consultas optimizadas e inyección de dependencias.
 user-invocable: true
 argument-hint: "Nombre del repository a crear (ej: 'ProductoRepository')"
 metadata: 
@@ -11,7 +15,7 @@ metadata:
 # SKILL: Creación de Repositories en .NET Core con Entity Framework
 
 ## Propósito
-Este skill proporciona las convenciones y patrones para crear repositories usando Entity Framework Core en .NET Core.
+Utiliza este skill para crear nuevos repositories en el proyecto de .NET Core siguiendo las convenciones y patrones establecidos. Los repositories generados incluirán la estructura base, implementación de un repositorio genérico base, herencia para repositories específicos, inyección de dependencias y documentación XML, asegurando que los repositories sigan las mejores prácticas de diseño y sean compatibles con el DbContext del proyecto. Este skill se basa en las mejores prácticas de diseño de repositories con Entity Framework Core en .NET Core, garantizando que los repositories sean claros, mantenibles y estén correctamente configurados para su uso en la aplicación. Este skill se complementa con el skill de creación de entidades, ya que los repositories se basan en las entidades definidas en el proyecto para realizar operaciones de acceso a datos.
 
 ## Arquitectura Base
 

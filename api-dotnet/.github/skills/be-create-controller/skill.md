@@ -1,6 +1,10 @@
 ---
 name: be-create-controller
-description: Guía para crear controllers en .NET Core.
+description: >
+  Utiliza este skill cuando necesites crear endpoints HTTP/API, manejar rutas REST, implementar operaciones CRUD, o añadir funcionalidad web a tu aplicación .NET. 
+  Aplica cuando el usuario mencione "crear endpoint", "API REST", "controlador", "ruta HTTP", "operaciones CRUD", o cuando necesite exponer funcionalidad de negocio via web —
+  incluso si no dice explícitamente "controller" o ".NET". Genera controllers completos con inyección de dependencias, manejo de errores, documentación Swagger, 
+  autenticación y patrones estándar (GetById, Search paginado, Upsert). Úsalo también para APIs de archivos, autenticación, o cualquier endpoint web.
 user-invocable: true
 argument-hint: "Nombre del controller a crear (ej: 'ProductoController')"
 metadata: 
@@ -11,7 +15,7 @@ metadata:
 # SKILL: Creación de Controllers en .NET Core Web API
 
 ## Propósito
-Este skill proporciona las convenciones y patrones para crear controllers en .NET Core Web API, basándose en los controllers existentes y sus implementaciones reales.
+Utiliza este skill para crear un nuevo controller en el proyecto de .NET Core Web API siguiendo las convenciones y patrones establecidos en la arquitectura del proyecto. El controller generado incluirá la estructura base, inyección de dependencias, manejo de errores y documentación Swagger/OpenAPI.  
 
 ## Arquitectura de Controllers
 
