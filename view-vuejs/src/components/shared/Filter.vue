@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { X } from 'lucide-vue-next'
 
 interface Props {
@@ -25,6 +25,13 @@ const emit = defineEmits<{
 }>()
 
 const showDropdown = ref(false)
+
+const filterValue = computed<string>({
+  get: () => props.modelValue ?? '',
+  set: (value) => {
+    emit('update:modelValue', value === '' ? null : value)
+  },
+})
 
 watch(
   () => props.isActive,
@@ -80,7 +87,7 @@ const handleClickOutside = (event: MouseEvent): void => {
         <!-- Input de búsqueda -->
         <input
           v-if="type === 'text' || type === 'date'"
-          v-model="(modelValue as string)"
+          v-model="filterValue"
           :type="type"
           :placeholder="`Filtrar por ${type}...`"
           class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm focus:outline-none focus:border-blue-500"
@@ -90,7 +97,7 @@ const handleClickOutside = (event: MouseEvent): void => {
         <!-- Select para opciones -->
         <select
           v-else-if="type === 'select' && options"
-          v-model="(modelValue as string)"
+          v-model="filterValue"
           class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm focus:outline-none focus:border-blue-500"
           @change="handleSearch()"
         >
