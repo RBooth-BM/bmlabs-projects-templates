@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { APP_ROUTES } from '@/constants'
+import { useAuthStore } from '@/stores/auth.store'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -47,9 +48,34 @@ const router = createRouter({
   ],
 })
 
-router.beforeEach((_to, _from, next) => {
-  // Guard temporalmente desactivado para facilitar la inspección de vistas
-  next()
+router.beforeEach(async (to) => {
+  const authStore = useAuthStore()
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth)
+  const isLoginRoute = to.name === 'login'
+
+  authStore.loadFromStorage()
+
+  if (isLoginRoute && authStore.isAuthenticated) {
+    const isStillAuthenticated = await authStore.checkAuthIfNeeded()
+    if (isStillAuthenticated) {
+      return { name: 'dashboard' }
+    }
+  }
+
+  if (!requiresAuth) {
+    return true
+  }
+
+  if (!authStore.isAuthenticated) {
+    return { name: 'login', query: { redirect: to.fullPath } }
+  }
+
+  const hasValidSession = await authStore.checkAuthIfNeeded()
+  if (!hasValidSession) {
+    return { name: 'login', query: { redirect: to.fullPath } }
+  }
+
+  return true
 })
 
 export default router
