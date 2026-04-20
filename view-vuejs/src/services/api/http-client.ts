@@ -6,6 +6,7 @@ import axios, {
 } from 'axios'
 import { apiConfig } from '@/config/api.config'
 import { APP_ROUTES, AUTH_STORAGE_KEYS } from '@/constants'
+import router from '@/router'
 
 declare module 'axios' {
   export interface AxiosRequestConfig {
@@ -45,8 +46,8 @@ httpClient.interceptors.response.use(
       sessionStorage.removeItem(AUTH_STORAGE_KEYS.TOKEN)
       localStorage.removeItem(AUTH_STORAGE_KEYS.USER)
 
-      if (window.location.pathname !== APP_ROUTES.LOGIN) {
-        window.location.href = APP_ROUTES.LOGIN
+      if (router.currentRoute.value.path !== APP_ROUTES.LOGIN) {
+        await router.replace({ path: APP_ROUTES.LOGIN })
       }
     }
 
