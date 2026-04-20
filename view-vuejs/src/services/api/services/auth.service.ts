@@ -1,8 +1,9 @@
 import httpClient from '../http-client'
 import type { LoginRequestDto, LoginResponseDto, MeResponseDto } from '@/types/auth.types'
+import { AUTH_API_ENDPOINTS } from '@/constants'
 
 export class AuthService {
-  private static readonly BASE_URLS = ['/auth', '/v1/Auth', '/api/v1/Auth'] as const
+  private static readonly BASE_URL = AUTH_API_ENDPOINTS.BASE
 
   private static normalizeLoginResponse(
     payload: Record<string, unknown>,
@@ -65,58 +66,27 @@ export class AuthService {
   }
 
   static async login(credentials: LoginRequestDto): Promise<LoginResponseDto> {
-    let lastError: unknown
-
-    for (const baseUrl of this.BASE_URLS) {
-      try {
-        const response = await httpClient.post<Record<string, unknown>>(
-          `${baseUrl}/login`,
-          credentials,
-          { skipErrorHandler: true },
-        )
-        return this.normalizeLoginResponse(response.data, credentials)
-      } catch (error) {
-        lastError = error
-      }
-    }
-
-    throw lastError
+    const response = await httpClient.post<Record<string, unknown>>(
+      `${this.BASE_URL}${AUTH_API_ENDPOINTS.LOGIN}`,
+      credentials,
+      { skipErrorHandler: true },
+    )
+    return this.normalizeLoginResponse(response.data, credentials)
   }
 
   static async me(): Promise<MeResponseDto> {
-    let lastError: unknown
-    const profilePaths = ['/me', '/profile', '/check'] as const
-
-    for (const baseUrl of this.BASE_URLS) {
-      for (const profilePath of profilePaths) {
-        try {
-          const response = await httpClient.get<Record<string, unknown>>(
-            `${baseUrl}${profilePath}`,
-            { skipErrorHandler: true },
-          )
-          return this.normalizeMeResponse(response.data)
-        } catch (error) {
-          lastError = error
-        }
-      }
-    }
-
-    throw lastError
+    const response = await httpClient.get<Record<string, unknown>>(
+      `${this.BASE_URL}${AUTH_API_ENDPOINTS.ME}`,
+      { skipErrorHandler: true },
+    )
+    return this.normalizeMeResponse(response.data)
   }
 
   static async logout(): Promise<void> {
-    for (const baseUrl of this.BASE_URLS) {
-      try {
-        await httpClient.post(`${baseUrl}/logout`, null, { skipErrorHandler: true })
-        return
-      } catch {
-        try {
-          await httpClient.get(`${baseUrl}/logout`, { skipErrorHandler: true })
-          return
-        } catch {
-          // Continues to next candidate endpoint.
-        }
-      }
-    }
+    await httpClient.post(
+      `${this.BASE_URL}${AUTH_API_ENDPOINTS.LOGOUT}`,
+      null,
+      { skipErrorHandler: true },
+    )
   }
 }

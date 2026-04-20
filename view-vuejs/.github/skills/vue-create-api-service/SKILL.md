@@ -25,6 +25,8 @@ Implementar la capa de transporte de datos del proyecto usando clases estáticas
 - Identificar el método HTTP correcto para cada endpoint (GET, POST, PATCH, PUT, DELETE).
 - Mapear los tipos de datos y formatos (string/uuid, number/int32, etc.).
 - Verificar si hay endpoints separados para Create/Update o un endpoint unificado.
+- Confirmar que cada endpoint a implementar exista literalmente en el OpenAPI (path + método).
+- Verificar la ruta final compuesta (`apiConfig.baseURL + BASE_URL + endpoint`) para evitar duplicación de segmentos o `//`.
 
 ### 1. Uso de Cliente Centralizado
 - Todo servicio DEBE importar `httpClient` desde `@/services/api/http-client`.
@@ -35,6 +37,7 @@ Implementar la capa de transporte de datos del proyecto usando clases estáticas
 ### 2. Patrón: Clase Estática
 - `export class EntityService { static async method() {} }`
 - `private static readonly BASE_URL = '/endpoint'`. **REGLA CRÍTICA**: Debe ser relativo a `apiConfig.baseURL`. Si el swagger dice `/api/v1/Auth` y el baseURL es `/api`, el BASE_URL del servicio debe ser `/v1/Auth`.
+- Si el base path o subpaths se reutilizan entre servicios, moverlos a `src/constants/` y reutilizarlos para evitar hardcode repetido.
 - **NO** objetos const. **NO** export default.
 - **MÉTODO HTTP CORRECTO**: Usar el método especificado en el OpenAPI (POST, PATCH, PUT, etc.). No asumir POST para updates.- **ENDPOINT EXISTENTE**: Solo generar métodos para paths que aparezcan en el Swagger. Si no existe `DELETE`, no crear `delete()`.
 ### 3. DTOs y Tipado
@@ -57,6 +60,8 @@ src/services/api/
 - [ ] ¿Importa `httpClient` del proyecto?
 - [ ] ¿Clase con métodos `static async`?
 - [ ] ¿`BASE_URL` como propiedad `private static readonly`?
+- [ ] ¿Cada endpoint implementado existe en Swagger (path + método)?
+- [ ] ¿Ruta final compuesta validada sin duplicidades (`/api/api`, `//`)?
 - [ ] ¿Todos los retornos tipados con interfaces?
 - [ ] ¿Método `getPaged()` con paginación?
 - [ ] ¿Sin lógica de negocio (solo transporte)?

@@ -22,6 +22,8 @@ Crear un servicio de API (clase estática) y sus tipos DTOs siguiendo la arquite
 4. **Analizar** el archivo Swagger/OpenAPI (ej. `swagger_local.json`) para encontrar el path real del endpoint.
 5. **Revisar** el método HTTP correcto para cada operación (GET, POST, PATCH, PUT, DELETE) según el OpenAPI.
 6. **Calcular** el `BASE_URL` del servicio restando el `baseURL` de la config al path del swagger para evitar duplicidad de `/api` o `/v1`.
+7. **Validar** que cada endpoint exista literalmente en el OpenAPI antes de generarlo (path + método HTTP).
+8. **Verificar** la ruta final compuesta (`apiConfig.baseURL + BASE_URL + endpoint`) para evitar `//`, segmentos duplicados o prefijos repetidos.
 </mandatory_skill_reads>
 
 <rules>
@@ -35,6 +37,7 @@ Crear un servicio de API (clase estática) y sus tipos DTOs siguiendo la arquite
 6. **DTOs**: Interfaces en el mismo archivo o en `*.types.ts` separado si son muchos.
 7. **Paginación**: Método `getPaged()` con parámetros de filtro opcionales.
 8. **Config**: Los métodos de escritura deben aceptar `config?: ApiRequestConfig` para `skipErrorHandler`.
+9. **Constantes compartidas**: Si el base path o subpaths se reutilizan entre servicios/módulos, definirlos en `src/constants/` y reutilizarlos en lugar de hardcodear strings.
 </rules>
 
 <checklist>
@@ -42,6 +45,8 @@ Crear un servicio de API (clase estática) y sus tipos DTOs siguiendo la arquite
 - [ ] ¿Clase con métodos `static async`?
 - [ ] ¿Importa `httpClient` del proyecto (no axios directo)?
 - [ ] ¿`BASE_URL` como propiedad privada?
+- [ ] ¿Validó que cada endpoint existe en Swagger (path + método HTTP)?
+- [ ] ¿La ruta final compuesta no duplica segmentos de `apiConfig.baseURL`?
 - [ ] ¿Todos los retornos tipados con interfaces?
 - [ ] ¿Método `getPaged()` con paginación tipada?
 - [ ] ¿Sin lógica de negocio (solo transporte)?
