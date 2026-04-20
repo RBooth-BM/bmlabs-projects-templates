@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BM Labs Vue Template</title>
+    <script>
+      ;(function () {
+        const savedTheme = localStorage.getItem('theme')
+        const savedColors = localStorage.getItem('customColors')
+
+        if (savedTheme === 'dark') {
+          document.documentElement.classList.add('dark')
+        }
+
+        if (savedColors) {
+          try {
+            const colors = JSON.parse(savedColors)
+            const root = document.documentElement
+
+            const getContrastColor = (hexColor) => {
+              const hex = hexColor.replace('#', '')
+              const r = parseInt(hex.substr(0, 2), 16)
+              const g = parseInt(hex.substr(2, 2), 16)
+              const b = parseInt(hex.substr(4, 2), 16)
+              const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255
+              return luminance > 0.5 ? '#000000' : '#ffffff'
+            }
+
+            root.style.setProperty('--color-primary', colors.primary || '#3862aa')
+            root.style.setProperty('--color-hover', colors.hover || '#374151')
+            root.style.setProperty('--color-icon', colors.icon || '#ffffff')
+            root.style.setProperty('--sidebar-bg', colors.primary || '#3862aa')
+            root.style.setProperty('--sidebar-svg-bg', colors.primary || '#3862aa')
+            root.style.setProperty('--sidebar-button-hover', colors.hover || '#374151')
+
+            const textColor = getContrastColor(colors.primary || '#3862aa')
+            const hoverTextColor = getContrastColor(colors.hover || '#374151')
+            const iconColor =
+              colors.icon && colors.icon !== ''
+                ? colors.icon
+                : getContrastColor(colors.primary || '#3862aa')
+
+            root.style.setProperty('--sidebar-text-color', textColor)
+            root.style.setProperty('--sidebar-text-hover', hoverTextColor)
+            root.style.setProperty('--sidebar-icon-color', iconColor)
+          } catch (error) {
+            console.warn('Error applying saved colors:', error)
+          }
+        }
+      })()
+    </script>
+  </head>
+  <body class="body bg-white dark:bg-[#0F172A] text-sm mb-5">
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

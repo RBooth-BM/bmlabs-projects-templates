@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+/* Habilita dark mode por clase (.dark en <html>), no por media query */
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-primary-rgb: var(--brand-primary-rgb);
+
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+}
+
+:root {
+  /* ── Color de marca principal ────────────────────────────────── */
+  --brand-primary:      #1e3a8a;
+  --brand-primary-rgb:  30, 58, 138;
+
+  /* ── Sidebar ─────────────────────────────────────────────────── */
+  --sidebar-bg:   #1e3a8a;
+  --sidebar-text: #ffffff;
+
+  /* ── Glassmorphism ───────────────────────────────────────────── */
+  --glass-blur:            16px;
+  --glass-saturate:        180%;
+  --glass-border-opacity:  0.2;
+}
+
+.dark {
+  --brand-primary:     #3b82f6;
+  --brand-primary-rgb: 59, 130, 246;
+  --sidebar-bg:        #0f172a;
+}
+
+body {
+  @apply bg-slate-50 text-slate-900 transition-colors duration-300;
+}
+
+.dark body {
+  @apply bg-slate-950 text-slate-100;
+}
+
+.glass-effect {
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+}
