@@ -23,7 +23,7 @@ Asegurar que toda vista administrativa (CRUD) tenga una estructura predecible, t
 
 ### 1. Estructura del Template (3 Bloques Obligatorios)
 - **SECCIÓN 1 (ACCIONES)**: `AppButton` con `variant="primary"` y `variant="secondary"`. IDs `kebab-case`.
-- **SECCIÓN 2 (DATOS)**: Tabla con `Filter` en headers, estados loading/empty, y `Paginator`.
+- **SECCIÓN 2 (DATOS)**: `DataTable` con `Filter` en headers, estados loading/empty, `Paginator`, refresh interno y limpieza global de filtros.
 - **SECCIÓN 3 (MODALES)**: `CreateEdit[Entity]Modal` basado en `BaseModal`.
 
 ### 2. Orden del Script Setup (12 Pasos)
@@ -46,6 +46,9 @@ Asegurar que toda vista administrativa (CRUD) tenga una estructura predecible, t
 - **AppButton**: Para acciones principales (Nuevo, Importar). Botones de acción en tabla pueden ser `<button>`.
 - **Filter**: Componente compartido en cada header de columna filtrable.
 - **Paginator**: Componente compartido bajo la tabla.
+- **Refresh**: Debe vivir dentro del `DataTable` (`:show-refresh-button="true"` + `@refresh`) cuando aplique.
+- **Relaciones**: usar `select`/`multiselect` para entidades relacionadas; evitar ingreso manual de UUID.
+- **Idioma UI**: textos visibles del front en español por defecto (código en inglés).
 - **Dark Mode**: Todas las clases con variantes `dark:`.
 - **TypeScript estricto**: `<script setup lang="ts">`, todas las refs tipadas.
 
@@ -55,6 +58,10 @@ Asegurar que toda vista administrativa (CRUD) tenga una estructura predecible, t
 - [ ] ¿Script setup sigue los 12 pasos en orden?
 - [ ] ¿Usa `AppButton` para acciones?
 - [ ] ¿Usa `Filter` y `Paginator`?
+- [ ] ¿Refresh integrado dentro de `DataTable`?
+- [ ] ¿Incluye limpieza global de filtros?
+- [ ] ¿UI visible en español?
+- [ ] ¿Relaciones sin UUID manual?
 - [ ] ¿Variables tipadas?
 - [ ] ¿`<script setup lang="ts">`?
 - [ ] ¿Soporte Dark Mode?

@@ -30,9 +30,11 @@ Al integrar el componente `Paginator`, DEBES asegurar:
 
 ### 1. Sincronización de Estado
 - Utiliza `v-model:currentPage` y `v-model:recordsPerPage` para mantener la reactividad bidireccional entre el componente y el Composable.
+- `recordsPerPage` debe inicializarse con un valor válido del selector para evitar estado en blanco.
 
 ### 2. Cálculos de Rango
 - El componente debe calcular dinámicamente las `visiblePages` incluyendo elipsis (`...`) para no saturar la interfaz en listas largas.
+- Si no hay registros, el rango inicial debe manejarse sin valores inválidos.
 
 ### 3. Eventos de Navegación
 - Los botones de navegación (Primero, Anterior, Siguiente, Último) DEBEN emitir los eventos correspondientes y deshabilitarse (`:disabled`) cuando los límites sean alcanzados.
@@ -40,11 +42,18 @@ Al integrar el componente `Paginator`, DEBES asegurar:
 ### 4. Estética e Iconografía
 - Usa exclusivamente los iconos de `lucide-vue-next` (ChevronFirst, ChevronLeft, etc.) alineados con el sistema de diseño.
 
+### 5. Convención de Tamaños por Página
+- Valor por defecto recomendado: `5`.
+- Opciones recomendadas: múltiplos de 5 (`5, 10, 15, 20, 25, 50, 100`).
+- Si `recordsPerPage` llega con un valor no estándar, debe mostrarse igualmente en el selector y no quedar en blanco.
+
 ## Checklist de Calidad
 
 - [ ] ¿Se vinculó correctamente el `modelValue` para la página actual?
 - [ ] ¿Los botones de navegación tienen estados `:disabled` correctos?
 - [ ] ¿Se muestra el selector de registros por página (opcional)?
+- [ ] ¿El selector nunca queda en blanco?
+- [ ] ¿Default y opciones siguen la convención acordada del proyecto?
 - [ ] ¿El diseño es responsivo y se adapta a móviles?
 - [ ] ¿Se utiliza Tailwind CSS para todos los estados visuales?
 - [ ] ¿Es compatible con Dark Mode?

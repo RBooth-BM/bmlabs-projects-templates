@@ -29,10 +29,18 @@ Al integrar el componente `Filter`, DEBES asegurar:
 
 ### 2. Posicionamiento Inteligente
 - El componente calcula su posición (`dropdownPosition`) basándose en los límites de la ventana (window edges) para evitar desbordamientos horizontales.
+- Debe comportarse correctamente en mobile y desktop (ancho, alineación y visibilidad).
 
 ### 3. Eventos de Comunicación
 - Escucha `@search` para disparar el refresco de datos en el Composable.
 - Maneja el cierre del dropdown con eventos de clic fuera del área (`handleClickOutside`).
+
+### 4. UX de Filtros (Obligatoria)
+- Mostrar indicador visual cuando un filtro está aplicado (icono activo / badge).
+- El botón de cierre del panel debe ser discreto y no competir con el tamaño del input.
+- Debe existir acción `Limpiar` por filtro.
+- El DataTable debe ofrecer adicionalmente `Limpiar todos los filtros`.
+- Los textos visibles del filtro (labels, placeholders, botones) deben estar en español por defecto.
 
 ## Checklist de Calidad
 
@@ -40,6 +48,9 @@ Al integrar el componente `Filter`, DEBES asegurar:
 - [ ] ¿Se especificó el `type` (text, date, select)?
 - [ ] ¿Se inyectó la lógica de búsqueda en el evento `@search`?
 - [ ] ¿Se maneja el flag `disabled` para estados de carga?
+- [ ] ¿Cierra al hacer click fuera del dropdown?
+- [ ] ¿Muestra indicador de filtro activo?
+- [ ] ¿Permite limpiar filtro individual y limpieza global en DataTable?
 - [ ] ¿El diseño es consistente con el resto de la tabla?
 
 ## Que Genera
