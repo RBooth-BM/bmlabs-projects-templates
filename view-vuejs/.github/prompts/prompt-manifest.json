@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "1.0",
+  "generatedBy": "BM",
+  "description": "Manifiesto de prompts para detección automática por agentes AI (Copilot, Gemini, Claude).",
+  "prompts": [
+    {
+      "id": "A",
+      "name": "CreateComponent",
+      "file": "A.-CreateComponent.prompt.md",
+      "description": "Generar componentes Vue 3 tipados ensamblando componentes compartidos reales.",
+      "argumentHint": "Nombre y features del componente"
+    },
+    {
+      "id": "B",
+      "name": "CreateApiService",
+      "file": "B.-CreateApiService.prompt.md",
+      "description": "Generar servicio API como clase estática tipada + httpClient centralizado.",
+      "argumentHint": "Nombre de la entidad y campos del backend"
+    },
+    {
+      "id": "C",
+      "name": "CreateDataGrid",
+      "file": "C.-CreateDataGrid.prompt.md",
+      "description": "Generar vista CRUD completa con patrón 12/3 (AppButton, Filter, Paginator, BaseModal).",
+      "argumentHint": "Nombre de la Entidad y campos"
+    },
+    {
+      "id": "D",
+      "name": "CreateComposable",
+      "file": "D.-CreateComposable.prompt.md",
+      "description": "Generar composable reactivo para lógica de negocio y CRUD.",
+      "argumentHint": "Nombre del Composable y entidad"
+    },
+    {
+      "id": "E",
+      "name": "CreateLayout",
+      "file": "E.-CreateLayout.prompt.md",
+      "description": "Generar/ajustar DefaultLayout con Sidebar estándar reutilizable, búsqueda global y responsive.",
+      "argumentHint": "Tipo de Layout requerido (Dashboard, Auth)"
+    },
+    {
+      "id": "F",
+      "name": "CreateView",
+      "file": "F.-CreateView.prompt.md",
+      "description": "Generar vista Vue sin formulario para escenarios read-only, dashboard o detalle.",
+      "argumentHint": "Nombre de la vista y objetivo"
+    },
+    {
+      "id": "G",
+      "name": "CreateValidator",
+      "file": "G.-CreateValidator.prompt.md",
+      "description": "Generar schemas Zod reutilizables con mensajes en español.",
+      "argumentHint": "Entidad o campos a validar"
+    },
+    {
+      "id": "H",
+      "name": "CreateForm",
+      "file": "H.-CreateForm.prompt.md",
+      "description": "Generar modal de formulario con BaseModal + validación Zod.",
+      "argumentHint": "Espec OpenAPI o lista de campos"
+    },
+    {
+      "id": "I",
+      "name": "CreateAuthStore",
+      "file": "I.-CreateAuthStore.prompt.md",
+      "description": "Generar store Pinia de autenticación con cookies HttpOnly y revalidación periódica.",
+      "argumentHint": "Campos de perfil del usuario"
+    },
+    {
+      "id": "J",
+      "name": "CreateAuthViews",
+      "file": "J.-CreateAuthViews.prompt.md",
+      "description": "Generar vistas Login/Signup con Zod, AppButton y Google Login opcional.",
+      "argumentHint": "Tipo de login (email, username, Google)"
+    },
+    {
+      "id": "K",
+      "name": "CreateProtectedRoutes",
+      "file": "K.-CreateProtectedRoutes.prompt.md",
+      "description": "Configurar Vue Router con auth guards, checkAuthIfNeeded y permisos.",
+      "argumentHint": "Lista de rutas y permisos requeridos"
+    },
+    {
+      "id": "L",
+      "name": "GenerateFullStackWorkflow",
+      "file": "L.-GenerateFullStackWorkflow.prompt.md",
+      "description": "Workflow orquestador para generar un módulo CRUD de forma secuencial (Types -> Validator -> Service -> Composable -> Modal -> DataGrid).",
+      "argumentHint": "Entidad de la cual generar todo el módulo"
+    },
+    {
+      "id": "M",
+      "name": "SetupProjectBase",
+      "file": "M.-SetupProjectBase.prompt.md",
+      "description": "Bootstrap inicial low-token: configura Auth, Sidebar estándar, DefaultLayout y guard de router en 6 pasos, leyendo Swagger.",
+      "argumentHint": "Ruta al swagger (ej: swagger_local.json) y URL base del backend"
+    },
+    {
+      "id": "N",
+      "name": "CreateExportAction",
+      "file": "N.-CreateExportAction.prompt.md",
+      "description": "Generar funcionalidad de exportación a Excel o PDF siguiendo patrones de BM.",
+      "argumentHint": "Entidad y formato (Excel/PDF)"
+    },
+    {
+      "id": "O",
+      "name": "ChangeProjectColors",
+      "file": "O.-ChangeProjectColors.prompt.md",
+      "description": "Actualizar tema de colores del proyecto de forma consistente (style.css, sidebar y branding).",
+      "argumentHint": "primaryColor, primaryDark y branding opcional"
+    },
+    {
+      "id": "Z",
+      "name": "GenerateFromSwagger",
+      "file": "Z.-GenerateFromSwagger.prompt.md",
+      "description": "Orquestar generación full stack desde Swagger/OpenAPI en una sola invocación.",
+      "argumentHint": "Endpoint o entidad a generar desde swagger"
+    }
+  ]
+}
