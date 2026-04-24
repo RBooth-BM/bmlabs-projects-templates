@@ -14,7 +14,7 @@ const router = createRouter({
     {
       path: '/',
       component: () => import('@/layout/DefaultLayout.vue'),
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: false },
       children: [
         {
           path: '',
@@ -24,7 +24,7 @@ const router = createRouter({
           path: APP_ROUTES.HOME.slice(1),
           name: 'home',
           component: () => import('@/views/HomeView.vue'),
-          meta: { requiresAuth: true },
+          meta: { requiresAuth: false },
         },
         {
           path: APP_ROUTES.DASHBOARD.slice(1),
@@ -50,13 +50,19 @@ const router = createRouter({
 
 router.beforeEach(async (to) => {
   const authStore = useAuthStore()
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth)
+  
   authStore.loadFromStorage()
 
-  // Rutas públicas: si ya está autenticado, redirigir al área principal
+  // Rutas públicas (Login/Signup): redirigir si ya está autenticado
   if (to.meta.public) {
     if (authStore.isAuthenticated) {
       return { path: DEFAULT_AFTER_LOGIN_ROUTE }
     }
+    return true
+  }
+
+  if (!requiresAuth) {
     return true
   }
 
