@@ -15,3 +15,5 @@ export const APP_ROUTES = {
 } as const
 
 export const AUTH_CHECK_INTERVAL_MS = 5 * 60 * 1000
+
+export const DEFAULT_AFTER_LOGIN_ROUTE = APP_ROUTES.HOME

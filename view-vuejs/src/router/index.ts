@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { APP_ROUTES } from '@/constants'
+import { APP_ROUTES, AUTH_API_ENDPOINTS, DEFAULT_AFTER_LOGIN_ROUTE } from '@/constants'
 import { useAuthStore } from '@/stores/auth.store'
 
 const router = createRouter({
@@ -14,7 +14,7 @@ const router = createRouter({
     {
       path: '/',
       component: () => import('@/layout/DefaultLayout.vue'),
-      meta: { requiresAuth: false },
+      meta: { requiresAuth: true },
       children: [
         {
           path: '',
@@ -24,7 +24,7 @@ const router = createRouter({
           path: APP_ROUTES.HOME.slice(1),
           name: 'home',
           component: () => import('@/views/HomeView.vue'),
-          meta: { requiresAuth: false },
+          meta: { requiresAuth: true },
         },
         {
           path: APP_ROUTES.DASHBOARD.slice(1),
@@ -43,35 +43,29 @@ const router = createRouter({
     },
     {
       path: '/:pathMatch(.*)*',
-      redirect: APP_ROUTES.DASHBOARD,
+      redirect: DEFAULT_AFTER_LOGIN_ROUTE,
     },
   ],
 })
 
 router.beforeEach(async (to) => {
   const authStore = useAuthStore()
-  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth)
-  const isLoginRoute = to.name === 'login'
-
   authStore.loadFromStorage()
 
-  if (isLoginRoute && authStore.isAuthenticated) {
-    const isStillAuthenticated = await authStore.checkAuthIfNeeded()
-    if (isStillAuthenticated) {
-      return { name: 'dashboard' }
+  // Rutas públicas: si ya está autenticado, redirigir al área principal
+  if (to.meta.public) {
+    if (authStore.isAuthenticated) {
+      return { path: DEFAULT_AFTER_LOGIN_ROUTE }
     }
-  }
-
-  if (!requiresAuth) {
     return true
   }
 
-  if (!authStore.isAuthenticated) {
-    return { name: 'login', query: { redirect: to.fullPath } }
+  // Validar sesión con el servidor solo si hay endpoint /me configurado
+  if (AUTH_API_ENDPOINTS.ME !== null) {
+    await authStore.checkAuthIfNeeded()
   }
 
-  const hasValidSession = await authStore.checkAuthIfNeeded()
-  if (!hasValidSession) {
+  if (!authStore.isAuthenticated) {
     return { name: 'login', query: { redirect: to.fullPath } }
   }
 
@@ -79,3 +73,4 @@ router.beforeEach(async (to) => {
 })
 
 export default router
+

@@ -75,6 +75,7 @@ export class AuthService {
   }
 
   static async me(): Promise<MeResponseDto> {
+    if (AUTH_API_ENDPOINTS.ME === null) return { user: null }
     const response = await httpClient.get<Record<string, unknown>>(
       `${this.BASE_URL}${AUTH_API_ENDPOINTS.ME}`,
       { skipErrorHandler: true },
@@ -83,6 +84,7 @@ export class AuthService {
   }
 
   static async logout(): Promise<void> {
+    if (AUTH_API_ENDPOINTS.LOGOUT === null) return
     await httpClient.post(
       `${this.BASE_URL}${AUTH_API_ENDPOINTS.LOGOUT}`,
       null,
