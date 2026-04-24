@@ -31,15 +31,15 @@
 
       <form class="w-full space-y-5" @submit.prevent="handleSubmit">
         <FormInput
-          id="usernameOrEmail"
-          v-model="form.usernameOrEmail"
-          label="Usuario o correo"
-          type="text"
+          id="email"
+          v-model="form.email"
+          label="Correo electrónico"
+          type="email"
           placeholder="usuario@empresa.com"
           autocomplete="username"
-          :error="!!errors.usernameOrEmail"
-          :error-message="errors.usernameOrEmail"
-          @blur="validateField('usernameOrEmail')"
+          :error="!!errors.email"
+          :error-message="errors.email"
+          @blur="validateField('email')"
           required
         />
 
@@ -100,7 +100,7 @@ import { Sun, Moon } from 'lucide-vue-next'
 import { loginSchema, type LoginForm } from '@/validators/auth.validator'
 import FormInput from '@/components/shared/FormInput.vue'
 import AppButton from '@/components/shared/AppButton.vue'
-import { APP_ROUTES } from '@/constants'
+import { DEFAULT_AFTER_LOGIN_ROUTE } from '@/constants'
 import logoSrc from '@/assets/logo/logo.svg'
 
 const router = useRouter()
@@ -120,7 +120,7 @@ const toggleTheme = () => {
 }
 
 const form = reactive<LoginForm>({
-  usernameOrEmail: '',
+  email: '',
   password: '',
 })
 
@@ -128,7 +128,7 @@ const errors = reactive<Partial<Record<keyof LoginForm, string>>>({})
 const apiError = ref('')
 const isSubmitting = ref(false)
 const touched = reactive<Record<keyof LoginForm, boolean>>({
-  usernameOrEmail: false,
+  email: false,
   password: false,
 })
 
@@ -136,12 +136,12 @@ const validateField = (field: keyof LoginForm) => {
   touched[field] = true
   const fieldValue = form[field]
 
-  if (field === 'usernameOrEmail') {
-    const result = loginSchema.shape.usernameOrEmail.safeParse(fieldValue)
+  if (field === 'email') {
+    const result = loginSchema.shape.email.safeParse(fieldValue)
     if (!result.success) {
-      errors.usernameOrEmail = result.error.issues[0]?.message
+      errors.email = result.error.issues[0]?.message
     } else {
-      delete errors.usernameOrEmail
+      delete errors.email
     }
     return
   }
@@ -155,14 +155,14 @@ const validateField = (field: keyof LoginForm) => {
 }
 
 watch(
-  () => form.usernameOrEmail,
+  () => form.email,
   () => {
-    if (touched.usernameOrEmail) {
-      const result = loginSchema.shape.usernameOrEmail.safeParse(form.usernameOrEmail)
+    if (touched.email) {
+      const result = loginSchema.shape.email.safeParse(form.email)
       if (!result.success) {
-        errors.usernameOrEmail = result.error.issues[0]?.message
+        errors.email = result.error.issues[0]?.message
       } else {
-        delete errors.usernameOrEmail
+        delete errors.email
       }
     }
   },
@@ -208,23 +208,10 @@ const handleSubmit = async () => {
   apiError.value = ''
 
   try {
-    // Mock login - en producción esto llamaría al auth store
-    await new Promise(resolve => setTimeout(resolve, 1000)) // Simular delay
+    await authStore.login(form)
 
-    // Simular respuesta exitosa
-    const mockUser = {
-      id: '1',
-      name: form.usernameOrEmail,
-      email: form.usernameOrEmail,
-    }
-
-    // En producción: await authStore.login(form)
-    authStore.setSession({ user: mockUser, token: 'mock-token' })
-
-    // Redirigir
-    const redirectTo = (route.query.redirect as string) || APP_ROUTES.DASHBOARD
-    router.push(redirectTo)
-
+    const redirectTo = (route.query.redirect as string) || DEFAULT_AFTER_LOGIN_ROUTE
+    await router.push(redirectTo)
   } catch (error) {
     apiError.value = error instanceof Error ? error.message : 'Error al iniciar sesión'
   } finally {

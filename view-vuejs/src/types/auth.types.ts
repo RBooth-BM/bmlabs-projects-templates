@@ -1,5 +1,5 @@
 export interface LoginRequestDto {
-  usernameOrEmail: string
+  email: string
   password: string
 }
 
@@ -11,9 +11,14 @@ export interface AuthUser {
 }
 
 export interface LoginResponseDto {
-  user?: AuthUser
-  accessToken?: string
-  token?: string
+  access_token?: string | null
+  accessToken?: string | null
+  token?: string | null
+  jwt?: string | null
+  expiration?: number | null
+  eleccionId?: string | null
+  usuarioId?: string | null
+  user?: AuthUser | null
   [key: string]: unknown
 }
 

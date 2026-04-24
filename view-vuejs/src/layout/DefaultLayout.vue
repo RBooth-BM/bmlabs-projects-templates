@@ -164,10 +164,12 @@ import { BarChart3, FolderKanban, Search, Settings, Menu, ChevronRight, LayoutDa
 import AppSidebar, { type NavigationItem } from './components/AppSidebar.vue'
 import AppLogo from '@/components/common/AppLogo.vue'
 import { BRAND_CONFIG } from '@/config/brand.config'
-import { APP_ROUTES, AUTH_STORAGE_KEYS } from '@/constants'
+import { APP_ROUTES } from '@/constants'
+import { useAuthStore } from '@/stores/auth.store'
 
 const route = useRoute()
 const router = useRouter()
+const authStore = useAuthStore()
 
 const sidebarRailCollapsed = ref(true)
 const isDesktop = ref(window.innerWidth >= 768)
@@ -179,7 +181,11 @@ const handleSidebarStateChange = (state: { isDesktop: boolean; isOpen: boolean; 
   sidebarOpen.value = state.isOpen
 }
 
-const userName = ref('Usuario Demo')
+const userName = computed(() => {
+  const user = authStore.user
+  if (!user) return null
+  return [user.name, user.email].find(Boolean) ?? null
+})
 
 const navigationItems: NavigationItem[] = [
   { id: 'nav-home', label: 'Home', path: APP_ROUTES.HOME, icon: BarChart3 },
@@ -207,9 +213,8 @@ const navigateTo = async (path: string) => {
   }
 }
 
-const handleLogout = () => {
-  sessionStorage.removeItem(AUTH_STORAGE_KEYS.TOKEN)
-  localStorage.removeItem(AUTH_STORAGE_KEYS.USER)
+const handleLogout = async () => {
+  await authStore.logout()
   void router.push(APP_ROUTES.LOGIN)
 }
 

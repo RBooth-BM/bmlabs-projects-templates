@@ -2,7 +2,7 @@ import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 import { AuthService } from '@/services/api/services/auth.service'
 import type { AuthUser, LoginRequestDto } from '@/types/auth.types'
-import { AUTH_CHECK_INTERVAL_MS, AUTH_STORAGE_KEYS } from '@/constants'
+import { AUTH_API_ENDPOINTS, AUTH_CHECK_INTERVAL_MS, AUTH_STORAGE_KEYS } from '@/constants'
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref<AuthUser | null>(null)
@@ -10,10 +10,10 @@ export const useAuthStore = defineStore('auth', () => {
 
   const isAuthenticated = computed(() => !!sessionStorage.getItem(AUTH_STORAGE_KEYS.TOKEN))
 
-  const setSession = (payload: { user: AuthUser; token?: string }) => {
+  const setSession = (payload: { user: AuthUser; token: string }) => {
     user.value = payload.user
     localStorage.setItem(AUTH_STORAGE_KEYS.USER, JSON.stringify(payload.user))
-    sessionStorage.setItem(AUTH_STORAGE_KEYS.TOKEN, payload.token || 'authenticated')
+    sessionStorage.setItem(AUTH_STORAGE_KEYS.TOKEN, payload.token)
   }
 
   const clearSession = () => {
@@ -25,12 +25,23 @@ export const useAuthStore = defineStore('auth', () => {
 
   const login = async (credentials: LoginRequestDto) => {
     const response = await AuthService.login(credentials)
-    const userPayload: AuthUser = response.user || {
-      name: credentials.usernameOrEmail,
-      email: credentials.usernameOrEmail,
+    const token =
+      response.access_token ||
+      response.accessToken ||
+      response.token ||
+      response.jwt
+
+    if (!token) {
+      throw new Error('El servidor no devolvió un token de autenticación')
     }
 
-    setSession({ user: userPayload, token: response.accessToken || response.token })
+    const userPayload: AuthUser = response.user ?? {
+      id: response.usuarioId ?? undefined,
+      name: credentials.email,
+      email: credentials.email,
+    }
+
+    setSession({ user: userPayload, token })
   }
 
   const loadFromStorage = () => {
@@ -49,6 +60,13 @@ export const useAuthStore = defineStore('auth', () => {
     if (!token) {
       clearSession()
       return false
+    }
+
+    if (AUTH_API_ENDPOINTS.ME === null) {
+      // Sin endpoint de validación: la presencia del token es suficiente
+      loadFromStorage()
+      lastAuthCheckAt.value = Date.now()
+      return true
     }
 
     try {

@@ -1,36 +1,20 @@
 import { z } from 'zod'
 
 /**
- * Schema de validación para login
+ * Schema de validación para login (contrato Swagger: LoginModel)
  */
 export const loginSchema = z.object({
-  usernameOrEmail: z
+  email: z
     .string()
     .trim()
-    .min(1, 'El usuario o correo es requerido')
-    .superRefine((value, ctx) => {
-      if (value.includes('@')) {
-        const emailResult = z.string().email('Ingresa un correo electronico valido').safeParse(value)
-        if (!emailResult.success) {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: 'Ingresa un correo electronico valido',
-          })
-        }
-        return
-      }
-
-      if (value.length < 3) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: 'El usuario debe tener al menos 3 caracteres',
-        })
-      }
-    }),
+    .min(1, 'El correo es requerido')
+    .email('Ingresa un correo electrónico válido')
+    .max(100, 'El correo no puede superar los 100 caracteres'),
   password: z
     .string()
     .min(1, 'La contraseña es requerida')
-    .min(6, 'La contraseña debe tener al menos 6 caracteres'),
+    .min(8, 'La contraseña debe tener al menos 8 caracteres')
+    .max(32, 'La contraseña no puede superar los 32 caracteres'),
 })
 
 export type LoginForm = z.infer<typeof loginSchema>

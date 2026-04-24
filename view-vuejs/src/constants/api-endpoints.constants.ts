@@ -8,8 +8,8 @@ export const AUTH_API_ENDPOINTS: {
   ME: string | null
   LOGOUT: string | null
 } = {
-  BASE: '/auth',
-  LOGIN: '/login',
-  ME: '/me',
-  LOGOUT: '/logout',
+  BASE: '/api/v1',
+  LOGIN: '/auth/login',
+  ME: '/auth/me',
+  LOGOUT: null,
 }

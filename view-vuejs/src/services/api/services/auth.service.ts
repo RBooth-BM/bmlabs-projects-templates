@@ -10,6 +10,7 @@ export class AuthService {
     credentials: LoginRequestDto,
   ): LoginResponseDto {
     const token =
+      (payload.access_token as string | undefined) ||
       (payload.accessToken as string | undefined) ||
       (payload.token as string | undefined) ||
       (payload.jwt as string | undefined)
@@ -18,20 +19,26 @@ export class AuthService {
       (payload.user as Record<string, unknown> | undefined) ||
       (payload.profile as Record<string, unknown> | undefined)
 
-    const fallbackName = credentials.usernameOrEmail.split('@')[0] || credentials.usernameOrEmail
+    const fallbackName = credentials.email.split('@')[0] || credentials.email
 
     return {
+      access_token: token,
       accessToken: token,
       token,
-      user: {
-        id: (userFromPayload?.id as string | undefined) || (payload.id as string | undefined),
-        name: (userFromPayload?.name as string | undefined) || fallbackName,
-        email:
-          (userFromPayload?.email as string | undefined) ||
-          (payload.email as string | undefined) ||
-          credentials.usernameOrEmail,
-        role: (userFromPayload?.role as string | undefined) || (payload.role as string | undefined),
-      },
+      expiration: payload.expiration as number | undefined,
+      eleccionId: payload.eleccionId as string | undefined,
+      usuarioId: payload.usuarioId as string | undefined,
+      user: userFromPayload
+        ? {
+            id: (userFromPayload.id as string | undefined),
+            name: (userFromPayload.name as string | undefined) || fallbackName,
+            email:
+              (userFromPayload.email as string | undefined) ||
+              (payload.email as string | undefined) ||
+              credentials.email,
+            role: (userFromPayload.role as string | undefined) || (payload.role as string | undefined),
+          }
+        : null,
     }
   }
 
